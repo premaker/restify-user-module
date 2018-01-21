@@ -1,0 +1,33 @@
+{
+    "name": "premaker/restify-user-module",
+    "description": "A user module for Restify, with user registration, login, logout, forgot and reset password functionality.",
+    "type": "restify-module",
+    "authors": [
+        {
+            "name": "Mohamed Hamdallah",
+            "email": "moh8med@gmail.com"
+        }
+    ],
+    "extra": {
+        "installer-name": "User",
+        "laravel": {
+            "providers": [
+                "Modules\\User\\Providers\\UserServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\User\\": ""
+        }
+    },
+    "require": {
+        "composer/installers": "~1.0",
+        "premaker/restify": "^1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
