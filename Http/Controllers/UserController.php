@@ -72,7 +72,7 @@ class UserController extends Controller
             // dispatch(new SendWelcomeEmail($resource));
 
             return json_response()->success([
-                'messages' => ['A new resource has been created successfully.'],
+                'messages' => [trans('messages.resource_created')],
                 'resource' => User::find($resource->id),
             ], 201);
         }
@@ -139,7 +139,7 @@ class UserController extends Controller
             : $data->delete();
 
         if ($deleted) {
-            return json_response()->success('The resource has been deleted successfully.');
+            return json_response()->success(trans('messages.resource_deleted'));
         }
 
         return json_response()->internalServerError();
