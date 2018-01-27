@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         // Check password
         if (! $hash->check($request->input('password'), $user->password)) {
-            return json_response()->unauthorized('11You are using incorrect email address or password.');
+            return json_response()->unauthorized('You are using incorrect email address or password.');
         }
 
         // Rehash password
