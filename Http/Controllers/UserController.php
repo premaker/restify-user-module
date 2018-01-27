@@ -107,4 +107,41 @@ class UserController extends Controller
 
         return json_response()->success($data);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request, $id)
+    {
+        // Get data
+        try {
+            $data = User::withTrashed()->findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return json_response()->notFound();
+        }
+
+        if ($data->trashed() && ! (bool) $request->input('force')) {
+            return json_response()->notFound();
+        }
+
+        // Authorization check
+        if (Gate::denies('delete', $data)) {
+            return json_response()->forbidden();
+        }
+
+        // Delete the model
+        $deleted = (bool) $request->input('force')
+            ? $data->forceDelete()
+            : $data->delete();
+
+        if ($deleted) {
+            return json_response()->success('The resource has been deleted successfully.');
+        }
+
+        return json_response()->internalServerError();
+    }
 }
